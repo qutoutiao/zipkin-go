@@ -57,11 +57,6 @@ func NewReporter() reporter.Reporter {
 }
 
 // Send outputs a span to the Go logger.
-/*func (r *logReporter) Send(s model.SpanModel) {
-    if b, err := json.Marshal(s); err == nil {
-        r.logger.Info(string(b))
-    }
-}*/
 func (r *logReporter) Send(s model.SpanModel) {
 	var t []model.SpanModel
 	t = append(t, s)
