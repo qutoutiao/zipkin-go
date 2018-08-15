@@ -10,9 +10,6 @@ import (
 	"github.com/qutoutiao/zipkin-go/model"
 	"github.com/qutoutiao/zipkin-go/reporter"
 	"github.com/Sirupsen/logrus"
-	"github.com/spf13/viper"
-	"os"
-	"path/filepath"
 )
 
 // logReporter will send spans to the default Go Logger.
@@ -31,26 +28,7 @@ func (f *ZipkinFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 }
 
 // NewReporter returns a new log reporter.
-func NewReporter() reporter.Reporter {
-
-	level, err := logrus.ParseLevel(viper.GetString("log.level"))
-	if err != nil {
-		panic(err)
-	}
-
-	logfile := viper.GetString("log.trace.file")
-	path := filepath.Join(viper.GetString("log.dir"), logfile)
-
-	w, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640)
-	if err != nil {
-		panic(err)
-	}
-	l := &logrus.Logger{
-		Out:       w,
-		Formatter: new(ZipkinFormatter),
-		Level:     level,
-	}
-
+func NewReporter(l *logrus.Logger) reporter.Reporter {
 	return &logReporter{
 		logger: l,
 	}
