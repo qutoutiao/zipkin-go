@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"github.com/qutoutiao/zipkin-go/model"
 	"github.com/qutoutiao/zipkin-go/reporter"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 // logReporter will send spans to the default Go Logger.
